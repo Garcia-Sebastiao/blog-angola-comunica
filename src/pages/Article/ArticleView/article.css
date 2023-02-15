@@ -73,6 +73,8 @@
 }
 .view-article-section .article-view .article-content p {
   max-width: 70%;
+  min-width: none;
+  min-width: 20rem;
   padding: 1rem 0;
 }
 
