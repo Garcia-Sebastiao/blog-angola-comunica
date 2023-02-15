@@ -227,3 +227,9 @@
     display: none;
   }
 }
+
+@media screen and (max-width: 512px){
+  .send-email-section {
+    max-width: 25rem;
+  }
+}
