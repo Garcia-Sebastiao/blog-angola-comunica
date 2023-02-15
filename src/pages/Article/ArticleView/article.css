@@ -108,8 +108,9 @@
   max-width: 35rem;
   max-height: 10rem;
   border-radius: 7px;
-  background-color: var(--input-color);
+  color: var(--text-color);
   border: 1px var(--border) solid;
+  background-color: var(--input-color);
 }
 .comments-section form button
 {

@@ -16,8 +16,8 @@
 }
 .mini-articles .mini-article .image {
   width: 20rem;
-  max-width: 130px;
   height: 100%;
+  max-width: 130px;
   display: flex;
   align-items: center;
   justify-content: center;

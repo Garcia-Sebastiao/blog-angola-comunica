@@ -97,6 +97,7 @@
   .header .header_categories
   {
     position: fixed;
+    z-index: 1;
   }
   .header .header_categories nav ul {
     top: 0;

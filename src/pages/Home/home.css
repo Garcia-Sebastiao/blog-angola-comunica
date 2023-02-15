@@ -170,13 +170,14 @@
 }
 .send-email-section .send-email-content form textarea {
   border: none;
-  padding: 1rem;
   flex: 1;
-  color: var(--text-color);
+  padding: 1rem;
+  max-width: 35rem;
   max-height: 10rem;
   border-radius: 7px;
-  background-color: var(--input-color);
+  color: var(--text-color);
   border: 1px var(--border) solid;
+  background-color: var(--input-color);
 }
 .send-email-section .send-email-content button {
   flex: 1;
