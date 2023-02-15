@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import "./home.css";
 import Header from "../../components/UI/Header/Header";
@@ -17,7 +18,11 @@ import ArticleShortcard from "../../components/UI/Article/ArticleShortcard/Artic
 
 export default function Home() {
   const [theme, setTheme] = useState("light");
+  const [articles, setArticles] = useState([]);
+  const [sports, setSports] = useState([]);
   const themeState = localStorage.getItem("theme");
+
+  const length = articles.length;
 
   function switchTheme() {
     if (theme == "light") {
@@ -27,6 +32,34 @@ export default function Home() {
     }
     localStorage.setItem("theme", theme);
   }
+
+  useEffect(() => {
+    //destaques
+    axios
+      .get("https://apiblogdb.onrender.com/blog/global/view_article_all")
+      .then((resp) => {
+        setArticles(resp.data);
+        console.log(resp.data)
+      });
+
+    // axios
+    //   .get("https://apiblogdb.onrender.com/blog/global/view_article_all")
+    //   .then((resp) => {
+    //     const datas = resp.data;
+    //     const arr = []
+
+    //     for (const data of datas) {
+    //       if(data.category == "Desporto")
+    //       {
+    //         arr.push(data);
+    //       }
+    //     }
+
+    //     setArticles(arr);
+    //   });
+  }, []);
+  console.log(articles[length - 1])
+  console.log(length)
 
   return (
     <div className="home" data-theme={themeState}>
@@ -48,16 +81,10 @@ export default function Home() {
                 <img src={image} alt="Imagem em destque" />
               </div>
 
-              <Link to="/article_view">
-                <h2>Lançamento de Angola Comunica Previsto para Fevereiro.</h2>
-              </Link>
+              <h2>{articles[length - 1].title}</h2>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Officia ut quasi debitis nostrum fugit dolores. Totam vero,
-                cupiditate eos culpa quaerat tempora nemo aspernatur cumque
-                fugit porro saepe consequuntur distinctio?
-              </p>
+              <p>{articles[length - 1].subtitle}</p>
+
             </div>
 
             <div className="mini-articles">
