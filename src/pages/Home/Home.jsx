@@ -81,9 +81,9 @@ export default function Home() {
                 <img src={image} alt="Imagem em destque" />
               </div>
 
-              <h2>{articles[length - 1].title}</h2>
+              <h2>{articles[length - 1]?.title}</h2>
 
-              <p>{articles[length - 1].subtitle}</p>
+              <p>{articles[length - 1]?.subtitle}</p>
 
             </div>
 
