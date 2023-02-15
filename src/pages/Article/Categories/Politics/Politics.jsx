@@ -48,7 +48,7 @@ export default function Politics() {
         <section className="connected-section container">
           <h2>Artigos Relacionados</h2>
 
-          <ConnectedArticles />
+          <ConnectedArticles category="Política"/>
         </section>
       </main>
 

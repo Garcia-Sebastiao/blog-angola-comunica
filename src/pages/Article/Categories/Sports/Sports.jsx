@@ -48,7 +48,7 @@ export default function Sports() {
         <section className="connected-section container">
           <h2>Artigos Relacionados</h2>
 
-          <ConnectedArticles />
+          <ConnectedArticles category="Desporto"/>
         </section>
       </main>
 

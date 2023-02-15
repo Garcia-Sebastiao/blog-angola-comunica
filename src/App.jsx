@@ -12,6 +12,7 @@ import Others from "./pages/Article/Categories/Others/Others";
 import Economy from "./pages/Article/Categories/Economy/Economy";
 import Politics from "./pages/Article/Categories/Politics/Politics";
 import ArticleView from "./pages/Article/ArticleView/Article"
+import Teste from './Teste';
 
 /*------------- CSS -------------*/
 import './App.css';
@@ -28,6 +29,7 @@ const App = () => (
         <Route path="/cadastrar" element={< SignUp/>}/>
         <Route path="/politica" element={< Politics/>}/>
         <Route path="/article_view" element={< ArticleView/>}/>
+        <Route path="/teste" element={<Teste/>}/>
     </Routes>
 );
 export default App;

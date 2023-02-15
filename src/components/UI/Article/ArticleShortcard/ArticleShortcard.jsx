@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./articleshortcard.css";
 
@@ -19,7 +20,9 @@ export default function ArticleShortcard(props) {
             </div>
 
             <div className="content">
-              <span>{props.title}</span>
+              <Link to="/article_view">
+                <span>{props.title}</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -36,28 +39,26 @@ export default function ArticleShortcard(props) {
         </div>
       </div>
     );
-  }
-  else
-  {
+  } else {
     return (
-        <div className="shortcard-article">
-          <div className="shortcard-header">
-            <h2>{props.category}</h2>
-            <a href="/">VER MAIS</a>
-          </div>
-    
-          <div className="shortcard-body">
-            <div className="shortcard">
-              <div className="image">
-                <img src={props.image} alt="imagem em destaque" />
-              </div>
-    
-              <div className="content">
-                <span>{props.title}</span>
-              </div>
+      <div className="shortcard-article">
+        <div className="shortcard-header">
+          <h2>{props.category}</h2>
+          <a href="/">VER MAIS</a>
+        </div>
+
+        <div className="shortcard-body">
+          <div className="shortcard">
+            <div className="image">
+              <img src={props.image} alt="imagem em destaque" />
+            </div>
+
+            <div className="content">
+              <span>{props.title}</span>
             </div>
           </div>
         </div>
-      )
+      </div>
+    );
   }
 }

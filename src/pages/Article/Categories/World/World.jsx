@@ -48,7 +48,7 @@ export default function World() {
         <section className="connected-section container">
           <h2>Artigos Relacionados</h2>
 
-          <ConnectedArticles />
+          <ConnectedArticles category='Mundo'/>
         </section>
       </main>
 
