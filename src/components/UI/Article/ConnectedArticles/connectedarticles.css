@@ -1,0 +1,7 @@
+.connected-articles
+{
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    align-items: center;
+}
