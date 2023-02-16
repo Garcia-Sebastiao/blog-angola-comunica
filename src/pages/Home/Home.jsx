@@ -23,7 +23,6 @@ export default function Home() {
   const themeState = localStorage.getItem("theme");
   let position = 1;
 
-  const length = articles.length;
   let counter = 2;
 
   function switchTheme() {
@@ -55,7 +54,7 @@ export default function Home() {
           }
         }
 
-        setPolitic(arr);
+        setPolitic(arr.reverse());
       });
 
     axios
@@ -70,7 +69,7 @@ export default function Home() {
           }
         }
 
-        setHealth(arr);
+        setHealth(arr.reverse());
       });
   }, []);
 
@@ -89,20 +88,24 @@ export default function Home() {
       <main>
         <section className="main-articles-section container">
           <div className="main-articles">
-            <div className="main-article">
-              <div className="image">
-                <img
-                  src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
-                    articles[length - 1]?.idArticle
-                  }`}
-                  alt="Imagem em destque"
-                />
+            {articles.length > 0 ? (
+              <div className="main-article">
+                <div className="image">
+                  <img
+                    src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
+                      articles[length - 1]?.idArticle
+                    }`}
+                    alt="Imagem em destque"
+                  />
+                </div>
+
+                <h2>{articles[length - 1]?.title}</h2>
+
+                <p>{articles[length - 1]?.subtitle}</p>
               </div>
-
-              <h2>{articles[length - 1]?.title}</h2>
-
-              <p>{articles[length - 1]?.subtitle}</p>
-            </div>
+            ) : (
+              " "
+            )}
 
             <div className="mini-articles">
               <MiniArticle category="Diversos" />
@@ -115,44 +118,34 @@ export default function Home() {
         <section className="last-news-section container">
           <h2>Últimas Notícias</h2>
 
-
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis ipsum perferendis ullam temporibus enim praesentium iure soluta magni, neque fugit quod hic dolores cupiditate aut earum quo? Est, soluta dolorum.</p>
           <div className="lasts-news">
-            {length > 0
-              ? articles.map((article) => {
-                  if (counter > 1) {
-                    counter++;
-                    position++;
-
-                    if (counter > 7) {
-                      counter = 1;
-                    }
+            {articles.length > 0
+              ? articles
+                  .slice(0, 7)
+                  .reverse()
+                  .map((article) => {
                     return (
                       <div className="article-card">
                         <div className="image">
                           <img
-                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
-                              articles[length + 1 - position]?.idArticle
-                            }`}
-                            alt={articles[length + 1 - position]?.title}
+                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
+                            alt={article?.title}
                           />
                         </div>
 
                         <div className="card-body">
-                          <h5>{articles[length + 1 - position]?.category}</h5>
-                          <h3>{articles[length + 1 - position]?.title}</h3>
+                          <h5>{article?.category}</h5>
+                          <h3>{article?.title}</h3>
                         </div>
                         <div className="card-footer">
                           <span>
-                            Postado em:{" "}
-                            {articles[length + 1 - position]?.create_at}
+                            Postado em: {Date(`${article?.create_at}`)}
                           </span>
                         </div>
                       </div>
                     );
-                  }
-                })
-              : "Sem artigos..."}
+                  })
+              : "Sem artigos disponíveis..."}
           </div>
         </section>
 
@@ -177,42 +170,31 @@ export default function Home() {
 
           <div className="articles">
             {politics.length > 0
-              ? politics.map((politic) => {
-                  if (counter > 0) {
-                    counter++;
-                    position++;
-
-                    if (counter > 4) {
-                      counter = 0;
-                    }
-
+              ? politics
+                  .slice(0, 7)
+                  .reverse()
+                  .map((article) => {
                     return (
                       <div className="article-card">
                         <div className="image">
                           <img
-                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
-                              politics[politics.length - position]?.idArticle
-                            }`}
-                            alt={politics[politics.length - position]?.title}
+                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
+                            alt={article?.title}
                           />
                         </div>
 
                         <div className="card-body">
-                          <h5>
-                            {politics[politics.length - position]?.category}
-                          </h5>
-                          <h3>{politics[politics.length - position]?.title}</h3>
+                          <h5>{article?.category}</h5>
+                          <h3>{article?.title}</h3>
                         </div>
                         <div className="card-footer">
                           <span>
-                            Postado em:{" "}
-                            {politics[politics.length - position]?.create_at}
+                            Postado em: {Date(`${article?.create_at}`)}
                           </span>
                         </div>
                       </div>
                     );
-                  }
-                })
+                  })
               : "Sem artigos disponíveis..."}
           </div>
         </section>
@@ -226,39 +208,31 @@ export default function Home() {
 
           <div className="articles">
             {health.length > 0
-              ? health.map((heal) => {
-                  if (counter > 0) {
-                    counter++;
-                    position++;
-
-                    if (counter > 3) {
-                      counter = 0;
-                    }
-
+              ? health
+                  .slice(0, 7)
+                  .reverse()
+                  .map((article) => {
                     return (
                       <div className="article-card">
                         <div className="image">
                           <img
-                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
-                              health[health.length - 1]?.idArticle
-                            }`}
-                            alt={health[health.length - 1]?.title}
+                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
+                            alt={article?.title}
                           />
                         </div>
 
                         <div className="card-body">
-                          <h5>{health[health.length - 1]?.category}</h5>
-                          <h3>{health[health.length - 1]?.title}</h3>
+                          <h5>{article?.category}</h5>
+                          <h3>{article?.title}</h3>
                         </div>
                         <div className="card-footer">
                           <span>
-                            Postado em: {health[health.length - 1]?.create_at}
+                            Postado em: {Date(`${article?.create_at}`)}
                           </span>
                         </div>
                       </div>
                     );
-                  }
-                })
+                  })
               : "Sem artigos disponíveis..."}
           </div>
         </section>
@@ -277,23 +251,23 @@ export default function Home() {
 
           <div className="shortcard-article">
             <div className="shortcard-header">
-              <h2>ECONOMIA</h2>
-              <Link to="/desporto">VER MAIS</Link>
-            </div>
-
-            <div className="shortcard-body">
-              <ArticleShortcard category="Economia" />
-            </div>
-          </div>
-
-          <div className="shortcard-article">
-            <div className="shortcard-header">
               <h2>DIVERSOS</h2>
               <Link to="/desporto">VER MAIS</Link>
             </div>
 
             <div className="shortcard-body">
               <ArticleShortcard category="Diversos" />
+            </div>
+          </div>
+
+          <div className="shortcard-article">
+            <div className="shortcard-header">
+              <h2>ECONOMIA</h2>
+              <Link to="/desporto">VER MAIS</Link>
+            </div>
+
+            <div className="shortcard-body">
+              <ArticleShortcard category="Economia" />
             </div>
           </div>
         </section>
