@@ -1,6 +1,7 @@
 import axios from "axios";
 import "./miniarticle.css";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function MiniArticle({ category, start, limit }) {
   const [articles, setArticles] = useState([]);
@@ -35,11 +36,11 @@ export default function MiniArticle({ category, start, limit }) {
                 </div>
                 <div className="content">
                   <small>{article?.category}</small>
-                  <h4>
+                  <h3>
                     <Link to={`/article_view/${article?.idArticle}`}>
                       {article?.title}
                     </Link>
-                  </h4>
+                  </h3>
                 </div>
               </div>
             );

@@ -39,6 +39,9 @@
   font-size: 1rem;
   font-family: Poppins-Bold;
 }
+.mini-articles .mini-article .content h3 a{
+  font-family: Poppins-Bold;
+}
 .mini-articles .mini-article .content h3:hover {
   cursor: pointer;
   text-decoration: underline 2px solid;
