@@ -12,28 +12,23 @@ export default function ConnectedArticles({ category }) {
     axios
       .get("https://apiblogdb.onrender.com/blog/global/view_article_all")
       .then((resp) => {
-        setArticles(resp.data);
+        const arr = [];
+        for (const data of resp.data) {
+          if (category == data.category) {
+            arr.push(data);
+          }
+        }
+        setArticles(arr.reverse());
       });
   }, []);
 
-  let length = 0;
-  let verify = 0;
-
   return (
     <div className="connected-articles">
-      {articles.map((article) => {
-        if (category == article.category) {
-          length++;
-
-          if (length > 0) {
+      {articles.length > 0
+        ? articles.map((article) => {
             return <ArticleCard article={article} />;
-          } else {
-            return (
-              <p style={{ padding: "1rem 0" }}>Sem artigos relacionados.</p>
-            );
-          }
-        }
-      })}
+          })
+        : <p style={{padding: '1rem 0'}}>Sem artigos disponíveis...</p>}
     </div>
   );
 }

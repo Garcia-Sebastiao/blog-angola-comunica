@@ -1,34 +1,50 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 import "./lastnews.css";
 
 import image from "../../../../assets/images/about-image.svg";
 import MiniArticle from "../../Article/MiniArticle/MiniArticle";
 
-export default function LastNews(props) {
+export default function LastNews({ category }) {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://apiblogdb.onrender.com/blog/global/view_article_all")
+      .then((resp) => {
+        const arr = [];
+        for (const data of resp.data) {
+          if (category == data.category) {
+            arr.push(data);
+          }
+        }
+        setArticles(arr.reverse());
+      });
+  }, []);
+
   return (
     <div className="lastnews">
-      <div className="lastnew-article">
-        <div className="image">
-          <img src={image} alt="Imagem em destque" />
-        </div>
+      {articles.length > 0
+        ? articles.slice(0, 1).map((article) => {
+            return (
+              <div className="lastnew-article">
+                <div className="image">
+                  <img src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`} alt={article?.idArticle} />
+                </div>
 
-        <h2>Lançamento de Angola Comunica Previsto para Fevereiro.</h2>
+                <h2>{article?.title}</h2>
 
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia ut
-          quasi debitis nostrum fugit dolores. Totam vero, cupiditate eos culpa
-          quaerat tempora nemo aspernatur cumque fugit porro saepe consequuntur
-          distinctio?
-        </p>
-      </div>
+                <p>
+                  {article?.subtitle}
+                </p>
+              </div>
+            );
+          })
+        : "Sem artigos disponíveis..."}
 
       <div className="mini-articles">
-        <MiniArticle
-          image={image}
-          category="Política"
-          title="Presidente da república Jõao Manuel Gonçalves Lourenço repudia corrupção."
-        />
+        <MiniArticle category={category} start={1} limit={3} />
       </div>
     </div>
   );

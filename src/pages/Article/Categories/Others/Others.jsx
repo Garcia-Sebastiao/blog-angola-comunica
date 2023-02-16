@@ -42,7 +42,7 @@ export default function Others() {
             <div className="separator"></div>
           </div>
 
-          <LastNews />
+          <LastNews category={'Diversos'}/>
         </section>
 
         <section className="connected-section container">

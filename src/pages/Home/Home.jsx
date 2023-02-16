@@ -14,16 +14,15 @@ import logoImage from "../../assets/images/logo-hero.svg";
 import Button from "../../components/UI/Button/SubmitButton/Button";
 import LinkButton from "../../components/UI/Button/LinkButton/Button";
 import ArticleShortcard from "../../components/UI/Article/ArticleShortcard/ArticleShortcard";
+import ArticleCard from "../../components/UI/Article/ArticleCard/ArticleCard";
 
 export default function Home() {
   const [theme, setTheme] = useState("light");
   const [articles, setArticles] = useState([]);
   const [politics, setPolitic] = useState([]);
   const [health, setHealth] = useState([]);
+  const [worlds, setWorld] = useState([]);
   const themeState = localStorage.getItem("theme");
-  let position = 1;
-
-  let counter = 2;
 
   function switchTheme() {
     if (theme == "light") {
@@ -64,6 +63,21 @@ export default function Home() {
         const arr = [];
 
         for (const data of datas) {
+          if (data.category == "Mundo") {
+            arr.push(data);
+          }
+        }
+
+        setWorld(arr.reverse());
+      });
+
+    axios
+      .get("https://apiblogdb.onrender.com/blog/global/view_article_all")
+      .then((resp) => {
+        const datas = resp.data;
+        const arr = [];
+
+        for (const data of datas) {
           if (data.category == "Saúde") {
             arr.push(data);
           }
@@ -88,29 +102,42 @@ export default function Home() {
       <main>
         <section className="main-articles-section container">
           <div className="main-articles">
-            {articles.length > 0 ? (
-              <div className="main-article">
-                <div className="image">
-                  <img
-                    src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
-                      articles[length - 1]?.idArticle
-                    }`}
-                    alt="Imagem em destque"
-                  />
-                </div>
+            {worlds.length > 0
+              ? worlds
+                  .slice(0, 1)
+                  .reverse()
+                  .map((article) => {
+                    return (
+                      <div className="main-article">
+                        <div className="image">
+                          <img
+                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
+                              article?.idArticle
+                            }`}
+                            alt={article?.idArticle}
+                          />
+                        </div>
 
-                <h2>{articles[length - 1]?.title}</h2>
+                        <h2>
+                          <Link
+                            to={`/article_view/${
+                              article?.idArticle
+                            }`}
+                          >
+                            {article?.title}
+                          </Link>
+                        </h2>
 
-                <p>{articles[length - 1]?.subtitle}</p>
-              </div>
-            ) : (
-              " "
-            )}
+                        <p>{article?.subtitle}</p>
+                      </div>
+                    );
+                  })
+              : ""}
 
             <div className="mini-articles">
-              <MiniArticle category="Diversos" />
-              <MiniArticle category="Mundo" />
-              <MiniArticle category="Política" />
+              <MiniArticle category="Diversos" start={0} limit={1} />
+              <MiniArticle category="Mundo" start={0} limit={1} />
+              <MiniArticle category="Política" start={0} limit={1} />
             </div>
           </div>
         </section>
@@ -124,26 +151,7 @@ export default function Home() {
                   .slice(0, 7)
                   .reverse()
                   .map((article) => {
-                    return (
-                      <div className="article-card">
-                        <div className="image">
-                          <img
-                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
-                            alt={article?.title}
-                          />
-                        </div>
-
-                        <div className="card-body">
-                          <h5>{article?.category}</h5>
-                          <h3>{article?.title}</h3>
-                        </div>
-                        <div className="card-footer">
-                          <span>
-                            Postado em: {Date(`${article?.create_at}`)}
-                          </span>
-                        </div>
-                      </div>
-                    );
+                    return <ArticleCard article={article} />;
                   })
               : "Sem artigos disponíveis..."}
           </div>
@@ -174,26 +182,7 @@ export default function Home() {
                   .slice(0, 7)
                   .reverse()
                   .map((article) => {
-                    return (
-                      <div className="article-card">
-                        <div className="image">
-                          <img
-                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
-                            alt={article?.title}
-                          />
-                        </div>
-
-                        <div className="card-body">
-                          <h5>{article?.category}</h5>
-                          <h3>{article?.title}</h3>
-                        </div>
-                        <div className="card-footer">
-                          <span>
-                            Postado em: {Date(`${article?.create_at}`)}
-                          </span>
-                        </div>
-                      </div>
-                    );
+                    return <ArticleCard article={article} />;
                   })
               : "Sem artigos disponíveis..."}
           </div>
@@ -212,26 +201,7 @@ export default function Home() {
                   .slice(0, 7)
                   .reverse()
                   .map((article) => {
-                    return (
-                      <div className="article-card">
-                        <div className="image">
-                          <img
-                            src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
-                            alt={article?.title}
-                          />
-                        </div>
-
-                        <div className="card-body">
-                          <h5>{article?.category}</h5>
-                          <h3>{article?.title}</h3>
-                        </div>
-                        <div className="card-footer">
-                          <span>
-                            Postado em: {Date(`${article?.create_at}`)}
-                          </span>
-                        </div>
-                      </div>
-                    );
+                    return <ArticleCard article={article} />;
                   })
               : "Sem artigos disponíveis..."}
           </div>

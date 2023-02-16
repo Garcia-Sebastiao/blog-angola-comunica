@@ -46,13 +46,13 @@ export default function Economy() {
             <div className="separator"></div>
           </div>
 
-          <LastNews />
+          <LastNews category="Economia" />
         </section>
 
         <section className="connected-section container">
           <h2>Artigos Relacionados</h2>
 
-          <ConnectedArticles category="Econimia"/>
+          <ConnectedArticles category="Economia"/>
         </section>
       </main>
 

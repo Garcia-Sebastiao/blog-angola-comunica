@@ -40,6 +40,9 @@
   font-size: 2.3rem;
   font-family: Poppins-Bold;
 }
+.main-articles-section .main-articles .main-article h2 a{
+  font-family: Poppins-Bold;
+}
 .main-articles-section .main-articles .main-article h2:hover {
   cursor: pointer;
   text-decoration: underline 3px solid;

@@ -42,7 +42,7 @@ export default function Politics() {
             <div className="separator"></div>
           </div>
 
-          <LastNews />
+          <LastNews category="Política"/>
         </section>
 
         <section className="connected-section container">

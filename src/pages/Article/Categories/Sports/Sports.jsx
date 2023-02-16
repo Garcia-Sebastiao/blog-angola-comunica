@@ -42,7 +42,7 @@ export default function Sports() {
             <div className="separator"></div>
           </div>
 
-          <LastNews />
+          <LastNews category={'Desporto'} />
         </section>
 
         <section className="connected-section container">

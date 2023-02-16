@@ -42,7 +42,7 @@ export default function Health() {
             <div className="separator"></div>
           </div>
 
-          <LastNews />
+          <LastNews category={'Saúde'} />
         </section>
 
         <section className="connected-section container">

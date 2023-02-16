@@ -1,5 +1,5 @@
 .article-card {
-  flex: none;
+  flex: none; 
   flex: 1 17.5rem;
   flex-wrap: wrap;
   border-radius: 7px;
@@ -28,6 +28,9 @@
 }
 .article-card .card-body h3 {
   font-size: 1rem;
+  font-family: Poppins-Bold;
+}
+.article-card .card-body h3 a{
   font-family: Poppins-Bold;
 }
 .article-card .card-body h3:hover {
