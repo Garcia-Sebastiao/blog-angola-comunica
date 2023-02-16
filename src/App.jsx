@@ -28,7 +28,7 @@ const App = () => (
         <Route path="/economia" element={< Economy/>}/>
         <Route path="/cadastrar" element={< SignUp/>}/>
         <Route path="/politica" element={< Politics/>}/>
-        <Route path="/article_view" element={< ArticleView/>}/>
+        <Route path="/article_view/:id" element={< ArticleView/>}/>
         <Route path="/teste" element={<Teste/>}/>
     </Routes>
 );

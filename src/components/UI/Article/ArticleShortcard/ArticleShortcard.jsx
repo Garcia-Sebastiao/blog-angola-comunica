@@ -1,64 +1,53 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./articleshortcard.css";
 
-export default function ArticleShortcard(props) {
-  if (props.category == "Desporto") {
-    return (
-      <div className="shortcard-article">
-        <div className="shortcard-header">
-          <h2>{props.category}</h2>
-          <a href="/">VER MAIS</a>
-        </div>
+export default function ArticleShortcard({ category }) {
+  const [articles, setArticles] = useState([]);
+  const length = articles.length;
+  let counter = 1;
+  let position = 1;
 
-        <div className="shortcard-body">
-          <div className="shortcard">
-            <div className="image">
-              <img src={props.image} alt="imagem em destaque" />
-            </div>
+  useEffect(() => {
+    axios
+      .get("https://apiblogdb.onrender.com/blog/global/view_article_all")
+      .then((resp) => {
+        setArticles(resp.data);
+      });
+  }, []);
 
-            <div className="content">
-              <Link to="/article_view">
-                <span>{props.title}</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="shortcard-body">
-          <div className="shortcard">
-            <div className="image">
-              <img src={props.image} alt="imagem em destaque" />
-            </div>
+  return (
+    <div>
+      {articles.length > 0 ? articles.map((article) => {
+        if (category == article.category) {
+          if (counter > 0) {
+            counter++;
+            position++;
 
-            <div className="content">
-              <span>{props.title}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="shortcard-article">
-        <div className="shortcard-header">
-          <h2>{props.category}</h2>
-          <a href="/">VER MAIS</a>
-        </div>
+            if (counter > 3) {
+              counter = 0;
+            }
+            return (
+              <div className="shortcard">
+                <div className="image">
+                  <img
+                    src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
+                      articles[articles.length - position]?.idArticle
+                    }`}
+                    alt={articles[length - position]?.title}
+                  />
+                </div>
 
-        <div className="shortcard-body">
-          <div className="shortcard">
-            <div className="image">
-              <img src={props.image} alt="imagem em destaque" />
-            </div>
-
-            <div className="content">
-              <span>{props.title}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+                <div className="content">
+                  <span>{articles[length - position]?.title}</span>
+                </div>
+              </div>
+            );
+          }
+        }
+      }) : 'Sem artigos disponíveis...'}
+    </div>
+  );
 }

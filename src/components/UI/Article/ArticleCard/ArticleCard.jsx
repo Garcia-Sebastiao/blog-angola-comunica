@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./articlecard.css";
-export default function ArticleCard({article}) {
+export default function ArticleCard({ article }) {
   const image = `https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`;
 
   return (
@@ -13,7 +14,7 @@ export default function ArticleCard({article}) {
       <div className="card-body">
         <h5>{article?.category}</h5>
         <h3>
-          {article?.title}
+          <Link to={`/article_view/${article?.idArticle}`}>{article?.title}</Link>
         </h3>
       </div>
       <div className="card-footer">

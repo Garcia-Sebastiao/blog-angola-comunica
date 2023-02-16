@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 
 import "./article.css";
 import logoImage from "../../../assets/images/logo-hero.svg";
@@ -12,10 +12,21 @@ import Footer from "../../../components/UI/Footer/Footer";
 import ArticleCard from "../../../components/UI/Article/ArticleCard/ArticleCard";
 import Comment from "../../../components/UI/Comment/Comment";
 import Button from "../../../components/UI/Button/SubmitButton/Button";
+import axios from "axios";
+import ConnectedArticles from "../../../components/UI/Article/ConnectedArticles/ConnectedArticles";
 
 export default function ArticleView() {
+  const { id } = useParams();
   const [theme, setTheme] = useState("light");
+  const [article, setArticle] = useState();
   const themeState = localStorage.getItem("theme");
+
+  useEffect(() => {
+    axios.get(`https://apiblogdb.onrender.com/blog/global/view_article/${id}`)
+    .then(resp => {
+      setArticle(resp.data);
+    })
+  })
 
   function switchTheme() {
     if (theme == "light") {
@@ -40,76 +51,39 @@ export default function ArticleView() {
       <main>
         <section className="view-article-section container">
           <div className="article-view">
-            <h2>Lançamento de Angola Comunica Previsto para Fevereiro.</h2>
+            <h2>{article?.title}</h2>
             <span>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum corrupti adipisci perspiciatis.
+              {article?.subtitle}
             </span>
 
             <div className="author-infos">
               <div className="author-image">
-                <img src={image} alt="" />
+                <img src={image} alt={article?.title} />
               </div>
 
               <div className="user-data">
                 <h4>Garcia Pedro</h4>
-                <span>Publicado em 13 de fevereiro de 2023.</span>
+                <span>{article?.create_at}</span>
               </div>
             </div>
 
             <div className="image">
-              <img src={image} alt="Imagem em destaque" />
+              <img src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${id}`} alt="Imagem em destaque" />
             </div>
 
             <div className="article-content">
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Recusandae amet sapiente architecto, at officia libero.
-                Cupiditate, perferendis, corrupti soluta harum molestias libero
-                nisi totam eligendi dolore debitis vero, quam labore.
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Maiores placeat esse sunt aliquam inventore, recusandae qui
-                ducimus! Quas eveniet voluptatem ea? Dolor officiis placeat
-                recusandae accusamus cumque a eveniet suscipit?
+                {article?.body}
               </p>
             </div>
           </div>
         </section>
 
         <section className="lasts-news-section container">
-          <h2>Últimas Notícias</h2>
+          <h2>Veja Também</h2>
 
           <div className="lasts-articles">
-            <ArticleCard
-              image={image}
-              category="Política"
-              title="Presidente da república Jõao Manuel Gonçalves Lourenço repudia corrupção"
-              create_at="22 Janeiro 2023"
-              author="Garcia Pedro"
-            />
-            <ArticleCard
-              image={image}
-              category="Política"
-              title="Presidente da república Jõao Manuel Gonçalves Lourenço repudia corrupção"
-              create_at="22 Janeiro 2023"
-              author="Garcia Pedro"
-            />
-            <ArticleCard
-              image={image}
-              category="Política"
-              title="Presidente da república Jõao Manuel Gonçalves Lourenço repudia corrupção"
-              create_at="22 Janeiro 2023"
-              author="Garcia Pedro"
-            />
-            <ArticleCard
-              image={image}
-              category="Política"
-              title="Presidente da república Jõao Manuel Gonçalves Lourenço repudia corrupção"
-              create_at="22 Janeiro 2023"
-              author="Garcia Pedro"
-            />
+            <ConnectedArticles category={article?.category}/>
           </div>
         </section>
 

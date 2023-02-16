@@ -7,11 +7,12 @@
 }
 .mini-articles .mini-article {
   width: 100%;
+  height: 130px;
   min-width: 20rem;
   display: flex;
   margin-bottom: 1rem;
   border-radius: 10px;
-  align-items: center;
+  align-items: start;
   border: 1px var(--border) solid;
 }
 .mini-articles .mini-article .image {
