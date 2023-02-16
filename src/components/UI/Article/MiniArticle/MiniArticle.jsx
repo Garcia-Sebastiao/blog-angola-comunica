@@ -23,24 +23,28 @@ export default function MiniArticle({ category, start, limit }) {
 
   return (
     <div>
-      {articles.length > 0 ? articles.slice(start, limit).map((article) => {
-        return (
-          <div className="mini-article">
-            <div className="image">
-              <img
-                src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${
-                  article?.idArticle
-                }`}
-                alt="Imagem em destaque"
-              />
-            </div>
-            <div className="content">
-              <small>{article?.category}</small>
-              <h4>{article?.title}</h4>
-            </div>
-          </div>
-        );
-      }) : ''}
+      {articles.length > 0
+        ? articles.slice(start, limit).map((article) => {
+            return (
+              <div className="mini-article">
+                <div className="image">
+                  <img
+                    src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
+                    alt="Imagem em destaque"
+                  />
+                </div>
+                <div className="content">
+                  <small>{article?.category}</small>
+                  <h4>
+                    <Link to={`/article_view/${article?.idArticle}`}>
+                      {article?.title}
+                    </Link>
+                  </h4>
+                </div>
+              </div>
+            );
+          })
+        : ""}
     </div>
   );
 }

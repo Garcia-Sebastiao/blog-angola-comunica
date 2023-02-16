@@ -30,14 +30,19 @@ export default function LastNews({ category }) {
             return (
               <div className="lastnew-article">
                 <div className="image">
-                  <img src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`} alt={article?.idArticle} />
+                  <img
+                    src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
+                    alt={article?.idArticle}
+                  />
                 </div>
 
-                <h2>{article?.title}</h2>
+                <h2>
+                  <Link to={`/article_view/${article?.idArticle}`}>
+                    {article?.title}
+                  </Link>
+                </h2>
 
-                <p>
-                  {article?.subtitle}
-                </p>
+                <p>{article?.subtitle}</p>
               </div>
             );
           })
