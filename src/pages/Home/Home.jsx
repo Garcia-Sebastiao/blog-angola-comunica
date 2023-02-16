@@ -115,6 +115,8 @@ export default function Home() {
         <section className="last-news-section container">
           <h2>Últimas Notícias</h2>
 
+
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis ipsum perferendis ullam temporibus enim praesentium iure soluta magni, neque fugit quod hic dolores cupiditate aut earum quo? Est, soluta dolorum.</p>
           <div className="lasts-news">
             {length > 0
               ? articles.map((article) => {
@@ -180,7 +182,7 @@ export default function Home() {
                     counter++;
                     position++;
 
-                    if (counter > 3) {
+                    if (counter > 4) {
                       counter = 0;
                     }
 

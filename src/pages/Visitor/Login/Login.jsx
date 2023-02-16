@@ -1,6 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/UI/Button/SubmitButton/Button";
+import FormData from "form-data";
+import { useAuth } from "../../../hooks/useAuth";
 
 /*----------------- CSS -----------------*/
 import "./login.css";
@@ -10,6 +12,31 @@ import logoHero from "../../../assets/images/logo-hero.svg";
 
 export default function Login() {
   const themeState = localStorage.getItem("theme");
+  const navigate = useNavigate();
+  const [values, setValues] = useState("");
+  const form = new FormData();
+  const auth = useAuth();
+
+  function onChange(event) {
+    event.preventDefault();
+
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  }
+
+  async function handleFormSubmit() {
+    try {
+      form.append("name", values.name);
+      form.append("password", values.password);
+
+      await auth.authenticate(form);
+
+      navigate("/home");
+      window.location.href = window.location.href;
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   return (
     <>
@@ -24,10 +51,22 @@ export default function Login() {
           <div className="form-area">
             <h2>LOGIN</h2>
 
-            <form action="">
-              <input type="email" placeholder="Degite seu email" />
+            <form onSubmit={handleFormSubmit} action="">
+              <input
+                name="name"
+                type="text"
+                placeholder="Degite seu Nome"
+                value={values.name}
+                onChange={onChange}
+              />
 
-              <input type="password" placeholder="Degite sua senha" />
+              <input
+                name="password"
+                value={values.password}
+                onChange={onChange}
+                type="password"
+                placeholder="Degite sua senha"
+              />
 
               <Button>Login</Button>
               <span>
