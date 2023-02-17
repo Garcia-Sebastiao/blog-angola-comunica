@@ -4,6 +4,7 @@ import "./header.css";
 
 import logoImage from "../../../assets/images/logo-hero.svg";
 import emailIcon from "../../../assets/images/icons/icons8_mail.svg";
+import searchIcon from "../../../assets/images/icons/icons8_search.svg";
 import phoneIcon from "../../../assets/images/icons/icons8_sip_dialer.svg";
 
 export default function Header(props) {
@@ -67,7 +68,12 @@ export default function Header(props) {
             </ul>
 
             <div className="nav-options">
+              <div className="categories-buttons">
+              <Link to='/search_article'>
+                <img className="search-link" src={searchIcon} alt="Procurar" />              
+              </Link>
               {props.children}
+              </div>
               <div onClick={navToogle} className="nav-toggle">
                 <div className="bar"></div>
                 <div className="bar"></div>

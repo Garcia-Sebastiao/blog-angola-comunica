@@ -222,7 +222,7 @@ export default function Home() {
           <div className="shortcard-article">
             <div className="shortcard-header">
               <h2>DIVERSOS</h2>
-              <Link to="/desporto">VER MAIS</Link>
+              <Link to="/diversos">VER MAIS</Link>
             </div>
 
             <div className="shortcard-body">
@@ -233,7 +233,7 @@ export default function Home() {
           <div className="shortcard-article">
             <div className="shortcard-header">
               <h2>ECONOMIA</h2>
-              <Link to="/desporto">VER MAIS</Link>
+              <Link to="/economia">VER MAIS</Link>
             </div>
 
             <div className="shortcard-body">
