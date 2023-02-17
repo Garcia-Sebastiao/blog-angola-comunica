@@ -6,11 +6,11 @@ const headers = form.headers;
 
 
 export function setUserLocalStorage(user) {
-  localStorage.setItem("u-token", JSON.stringify(user));
+  localStorage.setItem("visitor-token", JSON.stringify(user));
 }
 
 export function getUserLocalStorage() {
-  const json = localStorage.getItem("u-token");
+  const json = localStorage.getItem("visitor-token");
 
   if (!json) {
     return null;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/UI/Button/SubmitButton/Button";
 import FormData from "form-data";
-import { useAuth } from "../../../hooks/useAuth";
+import {useAuth} from '../../../contexts/AuthProvider'
 
 /*----------------- CSS -----------------*/
 import "./login.css";
@@ -29,6 +29,8 @@ export default function Login() {
       form.append("name", values.name);
       form.append("password", values.password);
 
+      console.log(auth)
+
       await auth.authenticate(form);
 
       navigate("/home");
@@ -51,29 +53,32 @@ export default function Login() {
           <div className="form-area">
             <h2>LOGIN</h2>
 
-            <form onSubmit={handleFormSubmit} action="">
-              <input
-                name="name"
-                type="text"
-                placeholder="Degite seu Nome"
-                value={values.name}
-                onChange={onChange}
-              />
+            <div className="form-box">
+              <form onSubmit={handleFormSubmit} action="">
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="Degite seu Nome"
+                  value={values.name}
+                  onChange={onChange}
+                />
 
-              <input
-                name="password"
-                value={values.password}
-                onChange={onChange}
-                type="password"
-                placeholder="Degite sua senha"
-              />
+                <input
+                  name="password"
+                  value={values.password}
+                  onChange={onChange}
+                  type="password"
+                  placeholder="Degite sua senha"
+                />
 
-              <Button>Login</Button>
-              <span>
-                Ainda não possui uma conta?{" "}
-                <Link to="/cadastrar">Cadastre-se.</Link>
-              </span>
-            </form>
+              </form>
+
+                <Button onClick={handleFormSubmit}>Login</Button>
+                <span>
+                  Ainda não possui uma conta?{" "}
+                  <Link to="/cadastrar">Cadastre-se.</Link>
+                </span>
+            </div>
           </div>
         </div>
       </main>

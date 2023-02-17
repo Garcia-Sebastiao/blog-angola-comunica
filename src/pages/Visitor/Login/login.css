@@ -38,7 +38,7 @@
   height: 5px;
   background-color: var(--MC-Mandalay);
 }
-.login .main-form .form-area form {
+.login .main-form .form-area .form-box {
   width: 100%;
   display: flex;
   padding: 3rem 2rem;
@@ -61,13 +61,13 @@
   padding: 0.7rem;
   margin-top: 1rem;
 }
-.login .main-form .form-area form span {
+.login .main-form .form-area .form-box span {
   padding: 1rem 0;
   font-size: 0.9rem;
   color: var(--text-color);
   text-align: center;
 }
-.login .main-form .form-area form span a {
+.login .main-form .form-area .form-box span a {
   font-family: Poppins-Medium;
 }
 
