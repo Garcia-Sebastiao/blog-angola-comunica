@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import FormData from "form-data";
 
 import "./article.css";
 import logoImage from "../../../assets/images/logo-hero.svg";
@@ -20,13 +21,31 @@ export default function ArticleView() {
   const [theme, setTheme] = useState("light");
   const [article, setArticle] = useState();
   const themeState = localStorage.getItem("theme");
+  const [comments, setComment] = useState([]);
+  const form = new FormData();
+
+  
 
   useEffect(() => {
-    axios.get(`https://apiblogdb.onrender.com/blog/global/view_article/${id}`)
-    .then(resp => {
-      setArticle(resp.data);
-    })
-  })
+    axios
+      .get(`https://apiblogdb.onrender.com/blog/global/view_article/${id}`)
+      .then((resp) => {
+        setArticle(resp.data);
+      });
+
+      // axios.get(``)
+
+      // axios
+      // .post(`/blog/global/reader/comment/${id}`, form)
+      // .then((resp) => {
+      // });
+
+      // axios
+      // .post(`/blog/global/post/{id_post}/comments/view`)
+      // .then((resp) => {
+      //   setComment(resp.data);
+      // });
+  }, []);
 
   function switchTheme() {
     if (theme == "light") {
@@ -52,9 +71,7 @@ export default function ArticleView() {
         <section className="view-article-section container">
           <div className="article-view">
             <h2>{article?.title}</h2>
-            <span>
-              {article?.subtitle}
-            </span>
+            <span>{article?.subtitle}</span>
 
             <div className="author-infos">
               <div className="author-image">
@@ -62,19 +79,20 @@ export default function ArticleView() {
               </div>
 
               <div className="user-data">
-                <h4>Garcia Pedro</h4>
+                <h4>{article?.id_editor}</h4>
                 <span>{article?.create_at}</span>
               </div>
             </div>
 
             <div className="image">
-              <img src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${id}`} alt="Imagem em destaque" />
+              <img
+                src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${id}`}
+                alt={article?.title}
+              />
             </div>
 
             <div className="article-content">
-              <p>
-                {article?.body}
-              </p>
+              <p>{article?.body}</p>
             </div>
           </div>
         </section>
@@ -83,34 +101,34 @@ export default function ArticleView() {
           <h2>Veja Também</h2>
 
           <div className="lasts-articles">
-            <ConnectedArticles category={article?.category}/>
+            <ConnectedArticles category={article?.category} />
           </div>
         </section>
 
         <section className="comments-section container">
           <h2>Comentários</h2>
 
-          <form action="">
-            <textarea
-              name="comment"
-              cols="30"
-              rows="5"
-              placeholder="Comentário"
-            />
+          <div className="comment-form">
+            <form action="">
+              <textarea
+                name="comment"
+                cols="30"
+                rows="5"
+                placeholder="Comentário"
+              />
+            </form>
 
             <Button type="submit">Comentar</Button>
-          </form>
+          </div>
+
           <div className="comments">
-            <Comment
-              visitorName="Garcia Pedro"
-              createAt="04 horas"
-              comment="I've been on my own since age 09🖖!"
-            />
-            <Comment
-              visitorName="Garcia Pedro"
-              createAt="04 horas"
-              comment="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga magnam consectetur cupiditate corporis reprehenderit, accusamus sint.🖖!"
-            />
+            {
+              comments.length > 0 ? comments.map(comment => (
+                <Comment comment={comment} />
+              )) : <p style={{
+                padding: '1rem'
+              }}> Sem comentários... </p>
+            }
           </div>
         </section>
       </main>

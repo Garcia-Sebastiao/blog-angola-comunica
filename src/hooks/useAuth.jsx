@@ -3,7 +3,6 @@ import {AuthContext} from '../contexts/AuthProvider'
 
 export const useAuth = () => {
     const context = useContext(AuthContext)
-    alert(context)
 
     return context;
 }

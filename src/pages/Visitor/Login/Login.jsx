@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/UI/Button/SubmitButton/Button";
 import FormData from "form-data";
-import {useAuth} from '../../../contexts/AuthProvider'
+import { useAuth } from "../../../hooks/useAuth";
 
 /*----------------- CSS -----------------*/
 import "./login.css";
@@ -26,10 +26,10 @@ export default function Login() {
 
   async function handleFormSubmit() {
     try {
-      form.append("name", values.name);
+      form.append("username", values.username);
       form.append("password", values.password);
 
-      console.log(auth)
+      console.log(auth);
 
       await auth.authenticate(form);
 
@@ -44,9 +44,9 @@ export default function Login() {
     <>
       <main className="login dark-mode" data-theme={themeState}>
         <aside>
-          <a href="/">
+          <Link to="/">
             <img src={logoHero} alt="LOGO" />
-          </a>
+          </Link>
         </aside>
 
         <div className="main-form">
@@ -56,11 +56,13 @@ export default function Login() {
             <div className="form-box">
               <form onSubmit={handleFormSubmit} action="">
                 <input
-                  name="name"
+                  name="username"
                   type="text"
+                  autoComplete="odd"
                   placeholder="Degite seu Nome"
-                  value={values.name}
+                  value={values.username}
                   onChange={onChange}
+                  required
                 />
 
                 <input
@@ -69,15 +71,15 @@ export default function Login() {
                   onChange={onChange}
                   type="password"
                   placeholder="Degite sua senha"
+                  required
                 />
-
               </form>
 
-                <Button onClick={handleFormSubmit}>Login</Button>
-                <span>
-                  Ainda não possui uma conta?{" "}
-                  <Link to="/cadastrar">Cadastre-se.</Link>
-                </span>
+              <Button onClick={handleFormSubmit}>Login</Button>
+              <span>
+                Ainda não possui uma conta?{" "}
+                <Link to="/cadastrar">Cadastre-se.</Link>
+              </span>
             </div>
           </div>
         </div>

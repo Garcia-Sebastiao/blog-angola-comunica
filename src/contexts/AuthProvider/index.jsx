@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getUserLocalStorage, loginRequest, setUserLocalStorage } from "./util";
-import { useContext } from "react";
 
 export const AuthContext = createContext();
 
@@ -35,10 +34,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => {
-    const context = React.useContext(AuthContext)
-    alert(context)
-
-    return context;
-}

@@ -4,7 +4,6 @@ import FormData from "form-data";
 const form = new FormData();
 const headers = form.headers;
 
-
 export function setUserLocalStorage(user) {
   localStorage.setItem("visitor-token", JSON.stringify(user));
 }
