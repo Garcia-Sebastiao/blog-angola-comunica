@@ -14,18 +14,22 @@ import light from "../../../assets/images/icons/light_mode.svg";
 export default function Search() {
   const [theme, setTheme] = useState("light");
   const [articles, setArticle] = useState([]);
-  const [search, setSearch] = useState('1');
+  const [search, setSearch] = useState("1");
   const themeState = localStorage.getItem("theme");
+  const newSearch = search[0]?.toUpperCase() + search?.substring(1);
 
   function handleSearch() {
-    if (search != '1' && search != ' ') {
-      console.log(search)
-      axios.get(`https://apiblogdb.onrender.com/blog/global/search_article/query=${search}`).then((resp) => {
-        setArticle(resp.data);
-      });
-      return true
-    }
-    else{
+    if (search != "1" && search != " ") {
+      console.log(search);
+      axios
+        .get(
+          `https://apiblogdb.onrender.com/blog/global/search_article/query=${newSearch}`
+        )
+        .then((resp) => {
+          setArticle(resp.data);
+        });
+      return true;
+    } else {
       return false;
     }
   }
@@ -74,24 +78,28 @@ export default function Search() {
           </div>
 
           <div className="search-content">
-            {{handleSearch} ? articles.map(article => (
-              <div className="mini-article">
-                <div className="image">
-                  <img
-                    src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
-                    alt="Imagem em destaque"
-                  />
+            {{ handleSearch } ? (
+              articles.map((article) => (
+                <div className="mini-article">
+                  <div className="image">
+                    <img
+                      src={`https://apiblogdb.onrender.com/blog/global/view_article/image/${article?.idArticle}`}
+                      alt="Imagem em destaque"
+                    />
+                  </div>
+                  <div className="content">
+                    <small>{article?.category}</small>
+                    <h3>
+                      <Link to={`/article_view/${article?.idArticle}`}>
+                        {article?.title}
+                      </Link>
+                    </h3>
+
+                    <span>{article?.body.slice(0, 200)}...</span>
+                  </div>
                 </div>
-                <div className="content">
-                  <small>{article?.category}</small>
-                  <h3>
-                    <Link to={`/article_view/${article?.idArticle}`}>
-                      {article?.title}
-                    </Link>
-                  </h3>
-                </div>
-              </div>
-            )) : (
+              ))
+            ) : (
               <p style={{ padding: "2rem 0" }}>
                 Sem artigos correspondentes...
               </p>
