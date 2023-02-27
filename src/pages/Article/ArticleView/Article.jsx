@@ -18,33 +18,42 @@ import ConnectedArticles from "../../../components/UI/Article/ConnectedArticles/
 
 export default function ArticleView() {
   const { id } = useParams();
-  const [theme, setTheme] = useState("light");
-  const [article, setArticle] = useState();
-  const themeState = localStorage.getItem("theme");
-  const [comments, setComment] = useState([]);
   const form = new FormData();
-
-  
+  const [user, setUser] = useState();
+  const [article, setArticle] = useState();
+  const [comments, setComment] = useState([]);
+  const [theme, setTheme] = useState("light");
+  const themeState = localStorage.getItem("theme");
 
   useEffect(() => {
     axios
       .get(`https://apiblogdb.onrender.com/blog/global/view_article/${id}`)
       .then((resp) => {
         setArticle(resp.data);
+
+        axios
+          .get(
+            resp.data.id_admin == null
+              ? `https://apiblogdb.onrender.com/blog/global/reader/view_info_editor/${resp.data.editor_id}`
+              : `https://apiblogdb.onrender.com/blog/global/view_info_admin/${resp.data.id_admin}`
+          )
+          .then((response) => {
+            setUser(response.data);
+          });
       });
 
-      // axios.get(``)
+    // axios.get(``)
 
-      // axios
-      // .post(`/blog/global/reader/comment/${id}`, form)
-      // .then((resp) => {
-      // });
+    // axios
+    // .post(`/blog/global/reader/comment/${id}`, form)
+    // .then((resp) => {
+    // });
 
-      // axios
-      // .post(`/blog/global/post/{id_post}/comments/view`)
-      // .then((resp) => {
-      //   setComment(resp.data);
-      // });
+    // axios
+    // .post(`/blog/global/post/{id_post}/comments/view`)
+    // .then((resp) => {
+    //   setComment(resp.data);
+    // });
   }, []);
 
   function switchTheme() {
@@ -75,12 +84,21 @@ export default function ArticleView() {
 
             <div className="author-infos">
               <div className="author-image">
-                <img src={image} alt={article?.title} />
+                <img
+                  src={
+                    article?.id_admin == null
+                      ? `https://apiblogdb.onrender.com/blog/global/view_image/${article?.editor_id}`
+                      : `https://apiblogdb.onrender.com/blog/global/view_image_admin/${article?.id_admin}`
+                  }
+                  alt={article?.title}
+                />
               </div>
 
               <div className="user-data">
-                <h4>{article?.id_editor}</h4>
-                <span>{article?.create_at}</span>
+                <h4>{user?.yourname}</h4>
+                <span>
+                  {article?.create_at}
+                </span>
               </div>
             </div>
 
@@ -93,6 +111,11 @@ export default function ArticleView() {
 
             <div className="article-content">
               <p>{article?.body}</p>
+
+              <span>
+                Fontes:
+                <b> {article?.font}</b>
+              </span>
             </div>
           </div>
         </section>
@@ -122,13 +145,18 @@ export default function ArticleView() {
           </div>
 
           <div className="comments">
-            {
-              comments.length > 0 ? comments.map(comment => (
-                <Comment comment={comment} />
-              )) : <p style={{
-                padding: '1rem'
-              }}> Sem comentários... </p>
-            }
+            {comments.length > 0 ? (
+              comments.map((comment) => <Comment comment={comment} />)
+            ) : (
+              <p
+                style={{
+                  padding: "1rem",
+                }}
+              >
+                {" "}
+                Sem comentários...{" "}
+              </p>
+            )}
           </div>
         </section>
       </main>
