@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import FormData from "form-data";
+import ReactHtmlParser from 'react-html-parser';
 
 import "./article.css";
 import logoImage from "../../../assets/images/logo-hero.svg";
@@ -80,7 +81,7 @@ export default function ArticleView() {
         <section className="view-article-section container">
           <div className="article-view">
             <h2>{article?.title}</h2>
-            <span>{article?.subtitle}</span>
+            <h3>{article?.subtitle}</h3>
 
             <div className="author-infos">
               <div className="author-image">
@@ -110,7 +111,7 @@ export default function ArticleView() {
             </div>
 
             <div className="article-content">
-              <p>{article?.body}</p>
+              {ReactHtmlParser(article?.body)}
 
               <span>
                 Fontes:

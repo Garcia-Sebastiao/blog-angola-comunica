@@ -10,6 +10,10 @@
   font-family: Poppins-Bold;
   src: url("./assets/fonts/poppins/Poppins-Bold.ttf");
 }
+@font-face {
+  font-family: Poppins-Semi-Bold;
+  src: url("./assets/fonts/poppins/Poppins-SemiBold.ttf");
+}
 .dark-mode {
   background-color: var(--background);
   transition: 0.4s ease-in-out;
@@ -82,6 +86,10 @@ h2 {
 
 h2 {
   font-family: Poppins-Bold;
+}
+h3
+{
+  font-family: Poppins-Semi-Bold;
 }
 
 /*------------------ Animate Styles ----------------*/
