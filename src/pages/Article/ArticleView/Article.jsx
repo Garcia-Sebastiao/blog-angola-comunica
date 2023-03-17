@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import FormData from "form-data";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from "react-html-parser";
 
 import "./article.css";
 import logoImage from "../../../assets/images/logo-hero.svg";
@@ -97,9 +97,7 @@ export default function ArticleView() {
 
               <div className="user-data">
                 <h4>{user?.yourname}</h4>
-                <span>
-                  {article?.create_at}
-                </span>
+                <span>{article?.create_at}</span>
               </div>
             </div>
 
@@ -115,7 +113,9 @@ export default function ArticleView() {
 
               <span>
                 Fontes:
-                <b> {article?.font}</b>
+                <a href={article?.font}>
+                  <b> {article?.font}</b>
+                </a>
               </span>
             </div>
           </div>
